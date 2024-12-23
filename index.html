@@ -1,140 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
-	<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.min.css" />
-	<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-	<title>PPDB 2025/2026 SDAM</title>
-	<style>
-		body {
-			background: url("https://img.freepik.com/free-vector/flat-arabic-pattern-background_79603-1826.jpg") no-repeat center center fixed;
-			background-size: cover;
-			background-blend-mode: overlay;
-			background-color: rgba(227, 236, 225, 0.7);
-			font-family: "Poppins", sans-serif;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			margin: 0;
-		}
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/responsive/2.4.1/css/responsive.bootstrap5.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>PPDB 2025/2026 SDAM</title>
+    <style>
+      body {
+        background: url("https://img.freepik.com/free-vector/flat-arabic-pattern-background_79603-1826.jpg")
+          no-repeat center center fixed;
+        background-size: cover;
+        background-blend-mode: overlay;
+        background-color: rgba(227, 236, 225, 0.7);
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+      }
 
-		.container-fluid {
-			max-width: 1100px;
-			width: 100%;
-			background: #ffffff;
-			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-			border-radius: 8px;
-			padding: 20px;
-			margin-top: 20px;
-			margin-bottom: 20px;
-		}
+      .container-fluid {
+        max-width: 1100px;
+        width: 100%;
+        background: #ffffff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
 
-		.header {
-			background-color: #42f5b9;
-			color: #003366;
-			padding: 20px;
-			border-radius: 5px;
-			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-			display: flex;
-			align-items: center;
-			justify-content: space-between;
-		}
+      .header {
+        background-color: #42f5b9;
+        color: #003366;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
 
-		.header-logo {
-			width: 60px;
-			height: 60px;
-		}
+      .header-logo {
+        width: 60px;
+        height: 60px;
+      }
 
-		.filter-container {
-			margin-bottom: 20px;
-			display: grid;
-			gap: 10px;
-		}
+      .filter-container {
+        margin-bottom: 20px;
+        display: grid;
+        gap: 10px;
+      }
 
-		@media (min-width: 768px) {
-			.filter-container {
-				grid-template-columns: repeat(2, 1fr);
-			}
-		}
+      @media (min-width: 768px) {
+        .filter-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
 
-		.table-responsive {
-			overflow-x: auto;
-		}
+      .table-responsive {
+        overflow-x: auto;
+      }
 
-		.table {
-			word-wrap: break-word;
-			white-space: normal;
-		}
+      .table {
+        word-wrap: break-word;
+        white-space: normal;
+      }
 
-		.table th, .table td {
-			vertical-align: middle;
-			text-align: center;
-		}
-	</style>
-</head>
-<body>
-	<div class="container-fluid">
-		<header class="header mb-4">
-			<img src="logo-left.png" alt="Logo Kiri" class="header-logo" />
-			<div>
-				<h1 class="mb-1">Hasil Seleksi PPDB</h1>
-				<p class="mb-0">Pengumuman Seleksi PPDB SD Al Mujahidin Wonosari Tahun Pelajaran 2025/2026</p>
-			</div>
-			<img src="logo-left.png" alt="Logo Kanan" class="header-logo" />
-		</header>
-		<div class="filter-container">
-			<select id="filter-nama" class="form-select" aria-label="Filter Nama">
-				<option value="" disabled selected>Cari Berdasarkan Nama</option>
-			</select>
-			<select id="filter-asal" class="form-select" aria-label="Filter Asal TK">
-				<option value="" disabled selected>Cari Berdasarkan Asal TK</option>
-			</select>
-            <select id="filter-keterangan" class="form-select" aria-label="Filter Keterangan">
-                <option value="" disabled selected>Cari Berdasarkan Keterangan</option>
-            </select>
-			<select id="filter-daftar-ulang" class="form-select" aria-label="Filter Daftar Ulang">
-				<option value="" disabled selected>Cari Berdasarkan Status Daftar Ulang</option>
-			</select>
-		</div>
-		<div id="loading" class="text-center my-4" style="display: none">
-			<div class="spinner-border text-primary" role="status">
-				<span class="visually-hidden">Loading...</span>
-			</div>
-		</div>
-		<div class="table-responsive">
-			<table id="example" class="table table-striped table-bordered table-sm"></table>
-		</div>
-	</div>
-	<footer class="text-center mt-4">
-		&copy; 2024 SD Al Mujahidin Wonosari | <a href="#">Kontak Kami</a>
-	</footer>
+      .table th,
+      .table td {
+        vertical-align: middle;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <header class="header mb-4">
+        <img src="logo-left.png" alt="Logo Kiri" class="header-logo" />
+        <div class="text-center">
+          <h1 class="mb-1">Hasil Seleksi PPDB</h1>
+          <p class="mb-0">
+            Pengumuman Seleksi PPDB SD Al Mujahidin Wonosari Tahun Pelajaran
+            2025/2026
+          </p>
+        </div>
+        <img src="logo-left.png" alt="Logo Kanan" class="header-logo" />
+      </header>
+      <div class="filter-container">
+        <select id="filter-nama" class="form-select" aria-label="Filter Nama">
+          <option value="">Cari Berdasarkan Nama</option>
+        </select>
+        <select
+          id="filter-asal"
+          class="form-select"
+          aria-label="Filter Asal TK"
+        >
+          <option value="">Cari Berdasarkan Asal TK</option>
+        </select>
+        <select
+          id="filter-keterangan"
+          class="form-select"
+          aria-label="Filter Keterangan"
+        >
+          <option value="">Cari Berdasarkan Keterangan</option>
+        </select>
+        <select
+          id="filter-daftar-ulang"
+          class="form-select"
+          aria-label="Filter Daftar Ulang"
+        >
+          <option value="">Cari Berdasarkan Status Daftar Ulang</option>
+        </select>
+      </div>
+      <div id="loading" class="text-center my-4" style="display: none">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table
+          id="example"
+          class="table table-striped table-bordered table-sm"
+        ></table>
+      </div>
+    </div>
+    <footer class="text-center mt-4">
+      &copy; 2024 SD Al Mujahidin Wonosari |
+      <a href="https://wa.me/6287838676974" target="_blank">Kontak Kami</a>
+    </footer>
 
-	<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
-	<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
-	<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-	<script>
-		$(document).ready(function () {
-			$("#example").DataTable({
-				responsive: true,
-				autoWidth: false,
-				ajax: {
-					url: "https://script.google.com/macros/s/AKfycbz2yhCzekQvlDnMHUrBb0tRJIDgGbte3gS0gplfMv0vgSM4BJgR0mqBfqxZUphkZTQcoA/exec",
-				},
-				columns: [
-					{ title: "NO", data: "no" },
-					{ title: "Nama", data: "nama" },
-					{ title: "JK", data: "jk" },
-					{ title: "Asal TK", data: "asal" },
-					{ title: "Hasil Seleksi", data: "keterangan" },
-					{ title: "Status Daftar Ulang", data: "daftar_ulang" },
-				],
-			});
-		});
-	</script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.1/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        const table = $("#example").DataTable({
+          responsive: true,
+          autoWidth: false,
+          ajax: {
+            url: "https://script.google.com/macros/s/AKfycbz2yhCzekQvlDnMHUrBb0tRJIDgGbte3gS0gplfMv0vgSM4BJgR0mqBfqxZUphkZTQcoA/exec",
+            dataSrc: function (json) {
+              // Populate filter options based on available data
+              const namaOptions = new Set();
+              const asalOptions = new Set();
+              const keteranganOptions = new Set();
+              const daftarUlangOptions = new Set();
+
+              json.forEach((item) => {
+                namaOptions.add(item.nama);
+                asalOptions.add(item.asal);
+                keteranganOptions.add(item.keterangan);
+                daftarUlangOptions.add(item.daftar_ulang);
+              });
+
+              // Populate select options
+              namaOptions.forEach((name) => {
+                $("#filter-nama").append(new Option(name, name));
+              });
+              asalOptions.forEach((asal) => {
+                $("#filter-asal").append(new Option(asal, asal));
+              });
+              keteranganOptions.forEach((keterangan) => {
+                $("#filter-keterangan").append(
+                  new Option(keterangan, keterangan)
+                );
+              });
+              daftarUlangOptions.forEach((status) => {
+                $("#filter-daftar-ulang").append(new Option(status, status));
+              });
+
+              return json;
+            },
+          },
+          columns: [
+            { title: "NO", data: "no" },
+            { title: "Nama", data: "nama" },
+            { title: "JK", data: "jk" },
+            { title: "Asal TK", data: "asal" },
+            { title: "Hasil Seleksi", data: "keterangan" },
+            { title: "Status Daftar Ulang", data: "daftar_ulang" },
+          ],
+        });
+
+        // Event listeners for the filters
+        $("#filter-nama").on("change", function () {
+          table.column(1).search(this.value).draw(); // Column 1 is 'Nama'
+        });
+
+        $("#filter-asal").on("change", function () {
+          table.column(3).search(this.value).draw(); // Column 3 is 'Asal TK'
+        });
+
+        $("#filter-keterangan").on("change", function () {
+          table.column(4).search(this.value).draw(); // Column 4 is 'Hasil Seleksi'
+        });
+
+        $("#filter-daftar-ulang").on("change", function () {
+          table.column(5).search(this.value).draw(); // Column 5 is 'Status Daftar Ulang'
+        });
+      });
+    </script>
+  </body>
 </html>
